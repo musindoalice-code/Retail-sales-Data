@@ -31,11 +31,8 @@
   <img src="assets/banner.svg" alt="Retail Sales Data Analysis Banner" width="100%">
 </p>
 
-<h1 align="center">Retail Sales Data Analysis (SQL)</h1>
+<h1 align="center">Retail Sales Data Analysis 
 
-<p align="center">
-  Exploratory data analysis and data quality auditing of a retail sales dataset, performed entirely in SQL.
-</p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/SQL-Analysis-blue" alt="SQL">
@@ -44,221 +41,84 @@
 </p>
 
 ---
+# Retail Data Agent Task
 
-## 📋 Table of Contents
+**BrightLearn — Retail Data Agent Task**
 
-- [Overview](#overview)
-- [Dataset](#dataset)
-- [Tools Used](#tools-used)
-- [SQL Analysis](#sql-analysis)
-  - [1. Data Preview](#1-data-preview)
-  - [2. Summary Statistics](#2-summary-statistics)
-  - [3. Duplicate Customer Check](#3-duplicate-customer-check)
-  - [4. Full Row Duplicate Check](#4-full-row-duplicate-check)
-  - [5. Age Range Validation](#5-age-range-validation)
-  - [6. Negative Quantity Check](#6-negative-quantity-check)
-  - [7. Negative Sales Check](#7-negative-sales-check)
-  - [8. Missing Value Audit](#8-missing-value-audit)
-  - [9. Combined Data Quality Report](#9-combined-data-quality-report)
-- [Key Insights](#key-insights)
-- [Project Structure](#project-structure)
-- [License](#license)
+## Project Objective
 
-## Overview
-
-This project analyzes a retail sales dataset of **1,000 transactions** using pure SQL — no Python or external BI tools. The queries were run against a table (`workspace.default.retail_sales_data`) and cover everything from a first data preview through summary statistics and a full data quality audit (duplicates, missing values, and invalid/outlier records).
-
-## Dataset
-
-The dataset (`retail_sales_data`) contains the following columns:
-
-| Column | Description | Type |
-|---|---|---|
-| `Transaction ID` | Unique identifier for each transaction | String/Int |
-| `Date` | Date of the transaction | Date (YYYY-MM-DD) |
-| `Customer ID` | Unique identifier for each customer | String |
-| `Gender` | Customer's gender | Categorical |
-| `Age` | Customer's age | Integer |
-| `Product Category` | Category of the purchased product (e.g., Beauty, Clothing, Electronics) | Categorical |
-| `Quantity` | Number of units purchased | Integer |
-| `Price per Unit` | Price of a single unit | Numeric |
-| `Total Amount` | Total transaction value (`Quantity` × `Price per Unit`) | Numeric |
-
-**Rows:** 1,000
-**Table:** `` `workspace`.`default`.`retail_sales_data` ``
+The goal of this project was to build a natural-language data agent over a retail sales dataset — allowing business questions to be asked in plain English and answered directly from the underlying data, without writing manual queries each time.
 
 ## Tools Used
 
-- **SQL** (Databricks SQL / Spark SQL syntax)
-- Databricks Workspace for querying and data exploration
+- **Databricks** — data platform and workspace
+- **Databricks Genie Space** — AI/BI natural language data agent
+- SQL (for underlying data exploration and validation)
 
-## SQL Analysis
+## Dataset Overview
 
-All queries below are in [`queries/analysis.sql`](queries/analysis.sql).
+The agent was built on a retail sales transaction dataset containing **1,000 records**, with the following fields:
 
-### 1. Data Preview
+| Column | Description |
+|---|---|
+| Transaction ID | Unique identifier for each transaction |
+| Date | Date of the transaction |
+| Customer ID | Unique identifier for each customer |
+| Gender | Customer's gender |
+| Age | Customer's age |
+| Product Category | Category of the purchased product (e.g. Beauty, Clothing, Electronics) |
+| Quantity | Number of units purchased |
+| Price per Unit | Price of a single unit |
+| Total Amount | Total transaction value (Quantity × Price per Unit) |
 
-A full look at the raw table before any analysis.
+## Steps Followed
 
-```sql
-SELECT * 
-FROM `workspace`.`default`.`retail_sales_data`;
-```
+1. Loaded and reviewed the retail sales dataset in Databricks
+2. Explored the data using SQL to understand structure, ranges, and data quality
+3. Created a Genie Space and connected it to the dataset
+4. Configured the agent's instructions so it could correctly interpret business questions against the schema
+5. Tested the agent with a series of sample business questions
+6. Reviewed the agent's generated insights and validated them against the underlying data
+7. Documented findings and packaged the project for submission
 
-### 2. Summary Statistics
+## Agent Instructions
 
-Generates core descriptive statistics across customers, product quantity, pricing, and total sales — including averages, minimums, maximums, and the overall revenue total.
+> _Add the actual instructions/context you configured in your Genie Space here — e.g. which tables it should reference, any business definitions you gave it (such as how "premium product" or "one-time buyer" is defined), and any specific formatting or behavior you asked it to follow._
 
-```sql
-SELECT
-    COUNT(*) AS total_records,
-    AVG(`Age`) AS average_age,
-    MIN(`Age`) AS minimum_age,
-    MAX(`Age`) AS maximum_age,
-    AVG(`Quantity`) AS average_quantity,
-    MIN(`Quantity`) AS minimum_quantity,
-    MAX(`Quantity`) AS maximum_quantity,
-    AVG(`Price per Unit`) AS average_price_per_unit,
-    MIN(`Price per Unit`) AS minimum_price_per_unit,
-    MAX(`Price per Unit`) AS maximum_price_per_unit,
-    AVG(`Total Amount`) AS average_total_amount,
-    MIN(`Total Amount`) AS minimum_total_amount,
-    MAX(`Total Amount`) AS maximum_total_amount,
-    SUM(`Total Amount`) AS total_sales
-FROM `workspace`.`default`.`retail_sales_data`;
-```
+## Sample Questions Tested
 
-### 3. Duplicate Customer Check
+- **"What are the top 10 performing products in [period]?"**
 
-Flags any `Customer ID` that appears more than once, to understand repeat customers vs. potential ID duplication issues.
+  The agent identified that premium products and high-value customers drive a disproportionate share of revenue, weekend traffic shows a clear multiplier effect on basket size, and category performance is relatively balanced, providing natural diversification.
 
-```sql
-SELECT
-    `Customer ID`,
-    COUNT(*) AS record_count
-FROM `workspace`.`default`.`retail_sales_data`
-GROUP BY `Customer ID`
-HAVING COUNT(*) > 1
-ORDER BY record_count DESC;
-```
-
-### 4. Full Row Duplicate Check
-
-Identifies fully duplicated transaction records across all key fields.
-
-```sql
-SELECT
-    `Transaction ID`,
-    `Date`,
-    `Customer ID`,
-    `Gender`,
-    `Age`,
-    `Product Category`,
-    `Quantity`,
-    `Price per Unit`,
-    `Total Amount`,
-    COUNT(*) AS duplicate_count
-FROM `workspace`.`default`.`retail_sales_data`
-GROUP BY `Transaction ID`, `Date`, `Customer ID`, `Gender`, `Age`, `Product Category`, `Quantity`, `Price per Unit`, `Total Amount`
-HAVING COUNT(*) > 1
-ORDER BY duplicate_count DESC;
-```
-
-### 5. Age Range Validation
-
-Checks for implausible ages (negative or over 100) that may indicate data entry errors.
-
-```sql
-SELECT *
-FROM `workspace`.`default`.`retail_sales_data`
-WHERE `Age` < 0
-   OR `Age` > 100
-ORDER BY `Age`;
-```
-
-### 6. Negative Quantity Check
-
-Flags any transactions with a negative quantity, which shouldn't be possible in a standard sales record.
-
-```sql
-SELECT *
-FROM `workspace`.`default`.`retail_sales_data`
-WHERE `Quantity` < 0
-ORDER BY `Quantity`;
-```
-
-### 7. Negative Sales Check
-
-Flags any transactions with a negative total amount.
-
-```sql
-SELECT *
-FROM `workspace`.`default`.`retail_sales_data`
-WHERE `Total Amount` < 0
-ORDER BY `Total Amount`;
-```
-
-### 8. Missing Value Audit
-
-Counts missing (NULL) values across the key columns.
-
-```sql
-SELECT
-    COUNT(*) AS total_records,
-    COUNT(*) - COUNT(`Customer ID`) AS missing_customer_id,
-    COUNT(*) - COUNT(`Age`) AS missing_age,
-    COUNT(*) - COUNT(`Product Category`) AS missing_product_category,
-    COUNT(*) - COUNT(`Quantity`) AS missing_quantity,
-    COUNT(*) - COUNT(`Price per Unit`) AS missing_price_per_unit,
-    COUNT(*) - COUNT(`Total Amount`) AS missing_total_amount
-FROM `workspace`.`default`.`retail_sales_data`;
-```
-
-### 9. Combined Data Quality Report
-
-A single consolidated query combining missing value counts with anomaly checks (invalid ages, negative quantities, negative prices, negative sales) for a full data quality snapshot in one result set.
-
-```sql
-SELECT
-    COUNT(*) AS total_records,
-    COUNT(*) - COUNT(`Customer ID`) AS missing_customer_id,
-    COUNT(*) - COUNT(`Age`) AS missing_age,
-    COUNT(*) - COUNT(`Product Category`) AS missing_product_category,
-    COUNT(*) - COUNT(`Quantity`) AS missing_quantity,
-    COUNT(*) - COUNT(`Price per Unit`) AS missing_price_per_unit,
-    COUNT(*) - COUNT(`Total Amount`) AS missing_total_amount,
-    SUM(CASE WHEN `Age` < 0 OR `Age` > 100 THEN 1 ELSE 0 END) AS unusual_age_records,
-    SUM(CASE WHEN `Quantity` < 0 THEN 1 ELSE 0 END) AS negative_quantity_records,
-    SUM(CASE WHEN `Price per Unit` < 0 THEN 1 ELSE 0 END) AS negative_price_records,
-    SUM(CASE WHEN `Total Amount` < 0 THEN 1 ELSE 0 END) AS negative_sales_records
-FROM `workspace`.`default`.`retail_sales_data`;
-```
+- _Add any additional questions you tested here._
 
 ## Key Insights
 
-> Replace these placeholders with your actual query results once you've run the analysis.
+**Strengths identified:**
+- Premium products and high-value customers drive disproportionate revenue
+- Weekend traffic and larger basket sizes show clear revenue multipliers
+- Balanced category performance provides diversification
 
-- **Total records:** 1,000
-- **Average customer age:** _fill in from Query 2_
-- **Average transaction value:** _fill in from Query 2_
-- **Total revenue:** _fill in from Query 2_
-- **Duplicate customers found:** _fill in from Query 3_
-- **Duplicate transactions found:** _fill in from Query 4_
-- **Data quality issues (missing/invalid values):** _fill in from Query 9_
+**Critical risks identified:**
+- Zero customer retention — 100% of buyers in the analyzed window were one-time buyers
+- Heavy concentration risk — roughly 20% of customers account for 63% of revenue
+- Extreme revenue volatility — a 125% monthly swing observed
+- 60% of transactions are low-value (≤R50 items)
 
-## Project Structure
+**Recommended immediate actions:**
+1. Launch a retention program targeting the top 20% of premium customers
+2. Implement basket size incentives (e.g. 3–4 unit bundles)
+3. Expand premium product lines, which currently represent 54% of revenue
+4. Stabilize Q3 performance with targeted September promotions
+5. Optimize Saturday operations, the highest-revenue day
 
-```
-retail-sales-analysis/
-├── assets/
-│   └── banner.svg
-├── queries/
-│   └── analysis.sql
-├── data/
-│   └── retail_sales_data.csv
-└── README.md
-```
+## Conclusion
 
-## License
+The Genie Space agent successfully translated natural-language business questions into accurate, data-grounded answers, surfacing both growth opportunities (premium products, weekend traffic) and risks (customer retention, revenue concentration) that would otherwise require manual SQL analysis to uncover. This demonstrates the value of a conversational data agent for making retail performance insights accessible to non-technical stakeholders.
+
+---
+
+*Submitted as part of the BrightLearn Retail Data Agent Task.*
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
