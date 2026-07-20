@@ -1,5 +1,5 @@
 # Retail-sales-Data
-This project is to explore how an AI-powered Data Agent can help a retail sales company make faster and better decisions using its retail sales data.
+This project is to explore how an AI-powered Data Agent can help a retail sales company make faster and better decisions using its retail sales data via natural language querying over the Databricks Genie Space.
 
 <img width="1200" height="260" alt="image" src="https://github.com/user-attachments/assets/f9581dbd-6611-4176-81a8-aea583fcc090" />
 
