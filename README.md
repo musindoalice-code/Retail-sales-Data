@@ -46,7 +46,6 @@ This project is to explore how an AI-powered Data Agent can help a retail sales 
 ---
 # Retail Data Agent Task
 
-**BrightLearn — Retail Data Agent Task**
 
 ## Project Objective
 
