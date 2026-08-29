@@ -1,7 +1,6 @@
 <p align="center">
-  <img src="assets/banner.png" alt="Retail Sales Data Agent Banner" width="100%">
+  <img src="Asset/sales_data_agent_banner.png" alt="Retail Sales Data Agent Banner" width="100%">
 </p>
-
 <h1 align="center">🛍️ Retail Sales Data Agent</h1>
 
 <p align="center">
