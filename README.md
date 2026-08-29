@@ -390,7 +390,7 @@ Overall, this project has helped me develop my skills in **SQL, Databricks, data
 
 **Alice Musindo**
 
-Data Analyst | SQL | Databricks | Excel | Power BI | Data Analytics | Data Studio | Databricks
+Data Analyst | SQL | Databricks | Excel | Power BI | Data Analytics | Data Studio 
 
 🌱 *Learning, building, validating, and turning data into meaningful insights—one project at a time.*
 
