@@ -1,7 +1,5 @@
-
-
 <p align="center">
-  <img src="assets/banner.svg" alt="Retail Sales Data Agent Banner" width="100%">
+  <img src="assets/banner.png" alt="Retail Sales Data Agent Banner" width="100%">
 </p>
 
 <h1 align="center">🛍️ Retail Sales Data Agent</h1>
@@ -22,7 +20,6 @@
 </p>
 
 ---
-
 
 # 🛍️ Building a Retail Sales Data Agent on Databricks
 
@@ -54,13 +51,13 @@ The agent was designed to help a business user, manager, or decision-maker explo
 
 The project focused on making sure that the agent could:
 
-- Answer questions using the connected dataset
-- Analyse sales performance and trends
-- Explore customer purchasing behaviour
-- Compare product categories
-- Identify useful patterns and potential business opportunities
-- Explain findings in clear business language
-- Avoid making up information that is not available in the data
+* Answer questions using the connected dataset
+* Analyse sales performance and trends
+* Explore customer purchasing behaviour
+* Compare product categories
+* Identify useful patterns and potential business opportunities
+* Explain findings in clear business language
+* Avoid making up information that is not available in the data
 
 The goal was not simply to create an AI agent that gives answers, but to create one that gives answers that are **grounded in the data and useful for decision-making**.
 
@@ -70,10 +67,10 @@ The goal was not simply to create an AI agent that gives answers, but to create 
 
 The following tools were used in this project:
 
-- **Databricks** – for storing, preparing, and exploring the data
-- **Databricks Genie Space** – for building the natural-language Data Agent
-- **SQL** – for exploring and validating the data
-- **GitHub** – for documenting and presenting the completed project
+* **Databricks** – for storing, preparing, and exploring the data
+* **Databricks Genie Space** – for building the natural-language Data Agent
+* **SQL** – for exploring and validating the data
+* **GitHub** – for documenting and presenting the completed project
 
 ---
 
@@ -87,17 +84,17 @@ The dataset was prepared in Databricks as:
 
 The dataset contains the following columns:
 
-| Column | Description |
-|---|---|
-| Transaction ID | Unique identifier for each transaction |
-| Date | Date when the transaction took place |
-| Customer ID | Unique identifier for each customer |
-| Gender | Gender information available in the dataset |
-| Age | Customer age |
-| Product Category | Category of the product purchased |
-| Quantity | Number of units purchased |
-| Price per Unit | Price of one unit |
-| Total Amount | Total value of the transaction |
+| Column           | Description                                 |
+| ---------------- | ------------------------------------------- |
+| Transaction ID   | Unique identifier for each transaction      |
+| Date             | Date when the transaction took place        |
+| Customer ID      | Unique identifier for each customer         |
+| Gender           | Gender information available in the dataset |
+| Age              | Customer age                                |
+| Product Category | Category of the product purchased           |
+| Quantity         | Number of units purchased                   |
+| Price per Unit   | Price of one unit                           |
+| Total Amount     | Total value of the transaction              |
 
 This data makes it possible to explore sales, customers, product categories, and trends over time.
 
@@ -123,12 +120,12 @@ Before creating the Data Agent, I spent time reviewing the dataset.
 
 I looked at:
 
-- The available columns
-- The type of information in each column
-- Sample values
-- Data ranges
-- Missing or unusual values
-- Potential data quality issues
+* The available columns
+* The type of information in each column
+* Sample values
+* Data ranges
+* Missing or unusual values
+* Potential data quality issues
 
 This step helped me understand which business questions the dataset could answer and which questions would be outside the scope of the available data.
 
@@ -166,30 +163,30 @@ One of the most important parts of this project was deciding how the agent shoul
 
 I created instructions to guide the agent on:
 
-- Its role and purpose
-- The type of users it is helping
-- The dataset it should use
-- The types of questions it should answer
-- How to explain results in business language
-- How to handle unclear questions
-- How to respond when information is missing
-- How to avoid making up data
-- When it is appropriate to make a recommendation
+* Its role and purpose
+* The type of users it is helping
+* The dataset it should use
+* The types of questions it should answer
+* How to explain results in business language
+* How to handle unclear questions
+* How to respond when information is missing
+* How to avoid making up data
+* When it is appropriate to make a recommendation
 
 My approach was to make sure the agent focused on the data that was actually available and communicated findings clearly.
 
 ### My guiding principles for the agent were:
 
-**Use the data as the source of truth.**  
+**Use the data as the source of truth.**
 The agent should base its answers on the connected dataset and should not invent numbers, categories, or information.
 
-**Be clear and easy to understand.**  
+**Be clear and easy to understand.**
 The answers should focus on what the results mean for the business rather than using unnecessary technical language.
 
-**Recognise the limits of the data.**  
+**Recognise the limits of the data.**
 If the information needed to answer a question is not available, the agent should say so rather than guessing.
 
-**Focus on meaningful insights.**  
+**Focus on meaningful insights.**
 Where the data supports it, the agent should identify trends, patterns, risks, and opportunities that could help the business make better decisions.
 
 > **Note:** The full version of my original agent instructions, exactly as entered into Databricks, is included in my project documentation and supporting evidence.
@@ -204,14 +201,14 @@ I made sure to test different types of questions so that I could see how the age
 
 The questions covered areas such as:
 
-- Overall sales performance
-- Product category performance
-- Customer behaviour
-- Customer spending patterns
-- Sales trends over time
-- Growth opportunities
-- Business risks
-- Recommendations supported by the data
+* Overall sales performance
+* Product category performance
+* Customer behaviour
+* Customer spending patterns
+* Sales trends over time
+* Growth opportunities
+* Business risks
+* Recommendations supported by the data
 
 I tested **at least 10 business questions** to understand how well the agent responded to different types of requests.
 
@@ -235,10 +232,10 @@ I used SQL and other available data checks to compare the agent's responses with
 
 For each validation, I considered:
 
-- What answer did the agent give?
-- What does the underlying data show?
-- Does the evidence support the answer?
-- Was the answer correct, partially correct, or incorrect?
+* What answer did the agent give?
+* What does the underlying data show?
+* Does the evidence support the answer?
+* Was the answer correct, partially correct, or incorrect?
 
 This part of the project helped me understand the importance of validation in data analytics.
 
@@ -286,11 +283,11 @@ However, conclusions should not be made about information that is not included i
 
 For example, the available data does not provide enough information to reliably analyse areas such as:
 
-- Customer satisfaction
-- Customer feedback
-- Store locations
-- Reasons why customers do or do not return
-- Online versus in-store purchasing behaviour
+* Customer satisfaction
+* Customer feedback
+* Store locations
+* Reasons why customers do or do not return
+* Online versus in-store purchasing behaviour
 
 Recognising these limitations helped me ensure that the analysis remained realistic and grounded in the available data.
 
@@ -330,13 +327,13 @@ This project taught me much more than how to create an AI-powered Data Agent.
 
 I learned the importance of:
 
-- Understanding the data before analysing it
-- Asking meaningful business questions
-- Giving an AI agent clear instructions
-- Recognising the limitations of a dataset
-- Validating AI-generated answers
-- Communicating insights in simple language
-- Connecting data analysis to real business decisions
+* Understanding the data before analysing it
+* Asking meaningful business questions
+* Giving an AI agent clear instructions
+* Recognising the limitations of a dataset
+* Validating AI-generated answers
+* Communicating insights in simple language
+* Connecting data analysis to real business decisions
 
 One of my biggest lessons was that **AI does not remove the need for analytical thinking**.
 
@@ -348,16 +345,16 @@ The AI agent can make data easier to access and explore, but a Data Analyst stil
 
 This repository contains the evidence and documentation for my completed project, including:
 
-- The project documentation
-- My Retail Sales Data Agent project journey
-- Dataset information
-- Evidence of data preparation
-- Agent setup information
-- My original agent instructions
-- Screenshots from the project process
-- Business questions tested
-- Validation of selected answers
-- Key insights and recommendations
+* The project documentation
+* My Retail Sales Data Agent project journey
+* Dataset information
+* Evidence of data preparation
+* Agent setup information
+* My original agent instructions
+* Screenshots from the project process
+* Business questions tested
+* Validation of selected answers
+* Key insights and recommendations
 
 ---
 
@@ -365,12 +362,12 @@ This repository contains the evidence and documentation for my completed project
 
 If I were to develop this project further, I would like to:
 
-- Test the agent with more complex business questions
-- Add additional visualisations and dashboards
-- Compare more AI-generated answers with manually written SQL queries
-- Explore a larger dataset with a longer period of sales history
-- Add more business information to support deeper analysis
-- Continue improving the agent instructions based on testing results
+* Test the agent with more complex business questions
+* Add additional visualisations and dashboards
+* Compare more AI-generated answers with manually written SQL queries
+* Explore a larger dataset with a longer period of sales history
+* Add more business information to support deeper analysis
+* Continue improving the agent instructions based on testing results
 
 This would allow me to test the agent in more situations and gain an even deeper understanding of how AI can support data-driven decision-making.
 
@@ -394,6 +391,9 @@ Overall, this project has helped me develop my skills in **SQL, Databricks, data
 
 **Alice Musindo**
 
-Data Analyst | SQL | Databricks | Excel | Power BI | Data Analytics| Data Studio |Data Bricks
+Data Analyst | SQL | Databricks | Excel | Power BI | Data Analytics | Data Studio | Databricks
 
-🌱 *Learning, building, validating, and turning data into meaningful insights—one project at a time.*[LICENSE](LICENSE) file for details.
+🌱 *Learning, building, validating, and turning data into meaningful insights—one project at a time.*
+
+For more information, see the [LICENSE](LICENSE) file for details.
+
